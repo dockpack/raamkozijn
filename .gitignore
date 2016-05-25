@@ -1,0 +1,11 @@
+/packer-windows/.DS_Store
+/packer-windows/iso/*
+!/packer-windows/iso/README.md
+/packer-windows/output-vmware/
+/packer-windows/output-vmware-iso/
+/packer-windows/output-vmware-vmx/
+/packer-windows/output-virtualbox/
+/packer-windows/output-virtualbox-iso/
+/packer-windows/output-virtualbox-ovf/
+/packer-windows/*.box
+/packer-windows/packer_cache/
