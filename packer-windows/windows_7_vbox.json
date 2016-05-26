@@ -5,13 +5,13 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": false,
+      "headless": true,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "8h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "Windows7_64",
+      "guest_os_type": "Windows7",
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -23,6 +23,12 @@
         "./scripts/oracle-cert.cer"
       ],
       "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--hwvirtex",
+          "off"
+        ],
         [
           "modifyvm",
           "{{.Name}}",
@@ -64,7 +70,7 @@
   "variables": {
     "iso_url": "http://download.msdn.microsoft.com/db/en_windows_7_ultimate_n_with_sp1_x64_dvd_u_677543.iso?t=0f9f58fa-b387-4c6b-9295-e5cb7eb8f6f6&e=1450102958&h=043ee3f9840034d1add8c35177940ced",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "a491f985dccfb5863f31b728dddbedb2ff4df8d1",
+    "iso_checksum": "4e0450ac73ab6f9f755eb422990cd9c7a1f3509c",
     "autounattend": "./answer_files/7/Autounattend.xml"
   }
 }
