@@ -3,7 +3,7 @@
     {
       "type": "qemu",
       "format":"qcow2",
-      "accelerator": "kvm",
+      "accelerator": "none",
       "disk_interface":"virtio",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -48,7 +48,7 @@
   "variables": {
     "iso_url": "http://download.msdn.microsoft.com/db/en_windows_7_ultimate_n_with_sp1_x64_dvd_u_677543.iso?t=0f9f58fa-b387-4c6b-9295-e5cb7eb8f6f6&e=1450102958&h=043ee3f9840034d1add8c35177940ced",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "a491f985dccfb5863f31b728dddbedb2ff4df8d1",
+    "iso_checksum": "4e0450ac73ab6f9f755eb422990cd9c7a1f3509c",
     "autounattend": "./answer_files/7/Autounattend.xml"
   }
 }
