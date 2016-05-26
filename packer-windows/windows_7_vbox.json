@@ -26,8 +26,61 @@
         [
           "modifyvm",
           "{{.Name}}",
-          "--hwvirtex",
+          "--boot1",
+          "floppy"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--boot2",
+          "dvd"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--boot3",
+          "disk"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nestedpaging",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--pae",
           "off"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vtxux",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vtxvpid",
+          "on"
+        ],
+        [
+          "setproperty",
+          "hwvirtexclusive",
+	  "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--longmode",
+          "off"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--hwvirtex",
+          "on"
         ],
         [
           "modifyvm",
