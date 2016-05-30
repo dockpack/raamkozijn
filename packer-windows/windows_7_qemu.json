@@ -4,20 +4,25 @@
       "type": "qemu",
       "format":"qcow2",
       "accelerator": "none",
-      "disk_interface":"virtio",
+      "disk_interface":"ide",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
       "boot_wait": "2m",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_wait_timeout": "8h",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "8h",
+      "winrm_insecure": true,
+      "winrm_port": 5985,
+      "winrm_use_ssl": false,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "disk_size": 61440,
       "qemuargs": [
                       [ "-m", "4048M" ],
-                      [ "-cpu", "Westmere" ]
+                      [ "-cpu", "Westmere" ],
+                      [ "-smp", "4"]
                     ],
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -25,7 +30,6 @@
         "./scripts/hotfix-KB3102810.bat",
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1",
-        "./scripts/openssh.ps1",
         "./scripts/oracle-cert.cer"
       ]
     }
@@ -37,7 +41,6 @@
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "./scripts/vm-guest-tools.bat",
-        "./scripts/vagrant-ssh.bat",
         "./scripts/disable-auto-logon.bat",
         "./scripts/enable-rdp.bat",
         "./scripts/compile-dotnet-assemblies.bat",

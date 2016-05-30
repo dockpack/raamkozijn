@@ -2,6 +2,7 @@
 /packer-windows/iso/*
 !/packer-windows/iso/README.md
 /packer-windows/output-vmware/
+/packer-windows/output-qemu/*
 /packer-windows/output-vmware-iso/
 /packer-windows/output-vmware-vmx/
 /packer-windows/output-virtualbox/
