@@ -3,7 +3,7 @@
     {
       "type": "qemu",
       "format":"qcow2",
-      "accelerator": "none",
+      "accelerator": "kvm",
       "disk_interface":"ide",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -18,10 +18,17 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "disk_size": 61440,
       "qemuargs": [
-                      [ "-m", "4048M" ],
-                      [ "-cpu", "Westmere" ],
-                      [ "-smp", "4"]
-                    ],
+        [ "-m", "4096M" ],
+        [ "-cpu", "host" ],
+        [ "-smp", "2"],
+        [
+          "-netdev",
+          "user,id=mynet0,",
+          ""
+        ],
+        [ "-device", "e1000,netdev=mynet0" ]
+      ],
+
       "floppy_files": [
         "{{user `autounattend`}}",
         "./scripts/dis-updates.ps1",
