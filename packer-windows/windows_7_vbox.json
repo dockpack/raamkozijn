@@ -5,16 +5,19 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": true,
+      "headless": false,
       "boot_wait": "2m",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_wait_timeout": "8h",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "8h",
+      "winrm_port": 5985,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "Windows7",
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
+        "./scripts/fixnetwork.ps1",
         "./scripts/dis-updates.ps1",
         "./scripts/hotfix-KB3102810.bat",
         "./scripts/microsoft-updates.bat",
@@ -23,24 +26,6 @@
         "./scripts/oracle-cert.cer"
       ],
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--boot1",
-          "floppy"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--boot2",
-          "dvd"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--boot3",
-          "disk"
-        ],
         [
           "modifyvm",
           "{{.Name}}",
@@ -92,14 +77,14 @@
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "2"
+          "1"
         ]
       ]
     }
   ],
   "provisioners": [
     {
-      "type": "shell",
+      "type": "windows-shell",
       "remote_path": "/tmp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
