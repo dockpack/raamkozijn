@@ -4,7 +4,7 @@
       "type": "qemu",
       "format":"qcow2",
       "accelerator": "kvm",
-      "disk_interface":"scsi",
+      "disk_interface":"ide",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -22,6 +22,7 @@
         [ "-m", "4096M" ],
         [ "-cpu", "host" ],
         [ "-smp", "4"],
+        [ "-redir", "tcp:5985::5985"],
         [ "-netdev", "tap,id=mynet0" ],
         [ "-device", "e1000,netdev=mynet0,mac=52:54:00:12:34:56" ]
       ],
@@ -31,7 +32,7 @@
         "./scripts/dis-updates.ps1",
         "./scripts/hotfix-KB3102810.bat",
         "./scripts/microsoft-updates.bat",
-        "./scripts/opensshing.ps1",
+        "./scripts/openssh.ps1",
         "./scripts/win-updates.ps1"
       ]
     }
