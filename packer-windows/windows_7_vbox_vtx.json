@@ -1,0 +1,114 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "headless": false,
+      "boot_wait": "2m",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "8h",
+      "winrm_port": 5985,
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "guest_os_type": "Windows7",
+      "disk_size": 61440,
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "./scripts/fixnetwork.ps1",
+        "./scripts/dis-updates.ps1",
+        "./scripts/hotfix-KB3102810.bat",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1",
+        "./scripts/openssh.ps1",
+        "./scripts/oracle-cert.cer"
+      ],
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nestedpaging",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vtxux",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vtxvpid",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vram",
+          "256"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--ioapic",
+          "on"
+        ],
+        [
+          "setproperty",
+          "hwvirtexclusive",
+	        "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--hwvirtex",
+          "on"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "4096"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "4"
+        ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "remote_path": "/tmp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "./scripts/vm-guest-tools.bat",
+        "./scripts/vagrant-ssh.bat",
+        "./scripts/disable-auto-logon.bat",
+        "./scripts/enable-rdp.bat",
+        "./scripts/compile-dotnet-assemblies.bat",
+        "./scripts/compact.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "windows_7_{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows_7.template"
+    }
+  ],
+  "variables": {
+    "iso_url": "http://download.msdn.microsoft.com/db/en_windows_7_ultimate_n_with_sp1_x64_dvd_u_677543.iso?t=0f9f58fa-b387-4c6b-9295-e5cb7eb8f6f6&e=1450102958&h=043ee3f9840034d1add8c35177940ced",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "4e0450ac73ab6f9f755eb422990cd9c7a1f3509c",
+    "autounattend": "./answer_files/7/Autounattend.xml"
+  }
+}
