@@ -1,5 +1,5 @@
 - name: Selenium Grid Windows Node
-  hosts: windows
+  hosts: default
   remote_user: vagrant
   gather_facts: no
 

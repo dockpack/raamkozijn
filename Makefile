@@ -20,4 +20,8 @@ packer-build-qemu:
 
 win7:
 	cd ./packer-windows; PACKER_LOG=1 packer build --force -var-file win7vars.json win7.json
+
+clean:
+	cd ./packer-windows; rm -rf ./output-virtualbox-iso; rm -rf ./output-qemu; rm -rf ./*.box
+
 default: packer-build-vbox

@@ -44,7 +44,8 @@
       "type": "windows-shell",
       "scripts": [
         "./scripts/disable-auto-logon.bat",
-        "./scripts/enable-rdp.bat"
+        "./scripts/enable-rdp.bat",
+        "./scripts/allow-winrm.bat"
       ]
     }
   ],

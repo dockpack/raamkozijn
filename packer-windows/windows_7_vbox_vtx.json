@@ -44,14 +44,15 @@
       "type": "windows-shell",
       "scripts": [
         "./scripts/disable-auto-logon.bat",
-        "./scripts/enable-rdp.bat"
+        "./scripts/enable-rdp.bat",
+        "./scripts/allow-winrm.bat"
       ]
     }
   ],
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": true,
+      "keep_input_artifact": false,
       "output": "windows_7_{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows_7.template"
     }
