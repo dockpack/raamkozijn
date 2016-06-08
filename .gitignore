@@ -1,3 +1,4 @@
+/.vagrant/*
 /packer-windows/.DS_Store
 /packer-windows/iso/*
 !/packer-windows/iso/README.md
