@@ -19,6 +19,8 @@
       "floppy_files": [
         "{{user `autounattend`}}",
         "./scripts/fixnetwork.ps1",
+        "./scripts/update_powershell.bat",
+        "./scripts/chocolatey.ps1",
         "./scripts/dis-updates.ps1",
         "./scripts/hotfix-KB3102810.bat",
         "./scripts/microsoft-updates.bat",
