@@ -14,6 +14,7 @@
       "winrm_port": 5985,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "Windows7",
+      "guest_additions_mode": "disable",
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -21,86 +22,36 @@
         "./scripts/dis-updates.ps1",
         "./scripts/hotfix-KB3102810.bat",
         "./scripts/microsoft-updates.bat",
-        "./scripts/win-updates.ps1",
-        "./scripts/openssh.ps1",
-        "./scripts/oracle-cert.cer"
+        "./scripts/win-updates.ps1"
       ],
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--nestedpaging",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--vtxux",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--vtxvpid",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--vram",
-          "256"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--ioapic",
-          "on"
-        ],
-        [
-          "setproperty",
-          "hwvirtexclusive",
-	        "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--hwvirtex",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "4096"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "4"
-        ]
+        [ "modifyvm", "{{.Name}}", "--nestedpaging", "on" ],
+        [ "modifyvm", "{{.Name}}", "--vtxux", "on" ],
+        [ "modifyvm", "{{.Name}}", "--vtxvpid", "on" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "256" ],
+        [ "modifyvm", "{{.Name}}", "--ioapic", "on" ],
+        [ "setproperty", "hwvirtexclusive", "on" ],
+        [ "modifyvm", "{{.Name}}", "--hwvirtex", "on" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "4" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,5985,,5985" ],
+        [ "modifyvm", "{{.Name}}", "--natpf2", "guest_winrm,tcp,,3390,,3389" ]
       ]
     }
   ],
   "provisioners": [
     {
       "type": "windows-shell",
-      "remote_path": "/tmp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "./scripts/vm-guest-tools.bat",
-        "./scripts/vagrant-ssh.bat",
         "./scripts/disable-auto-logon.bat",
-        "./scripts/enable-rdp.bat",
-        "./scripts/compile-dotnet-assemblies.bat",
-        "./scripts/compact.bat"
+        "./scripts/enable-rdp.bat"
       ]
     }
   ],
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": false,
+      "keep_input_artifact": true,
       "output": "windows_7_{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows_7.template"
     }

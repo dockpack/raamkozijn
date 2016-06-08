@@ -1,6 +1,7 @@
 AUTHOR=ing-bank
 NAME=raamkozijn
 VERSION=latest
+PACKER_LOG=1
 
 docker:
 	docker build -t $(AUTHOR)/$(NAME):$(VERSION) .

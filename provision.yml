@@ -1,0 +1,10 @@
+- name: Selenium Grid Windows Node
+  hosts: windows
+  remote_user: vagrant
+  gather_facts: no
+
+  #roles:
+  #- windows-selenium-role
+
+  tasks:
+    - include: tasks/windows_tasks.yml
