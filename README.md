@@ -15,8 +15,13 @@ The resulting Vagrant box can in turn be found at ./packer-windows/windows_7_vir
 
 **Windows Updates are disabled by default**
 
-## Using Vagrant and Ansible to provision the base OS
+## Using Vagrant and Ansible to provision the base OS (Dev environment)
 
 ```
 $ vagrant up
+```
+
+## Checking the WinRM connection with Ansible
+```
+$ ansible default -i inventory.ini -m win_ping -vvv
 ```
