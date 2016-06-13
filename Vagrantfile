@@ -28,6 +28,14 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
   config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "#$MEMSIZE", "--natnet1", "172.16.1/24"]
+        vb.customize ["modifyvm", :id, "--nestedpaging", "on"]
+        vb.customize ["modifyvm", :id, "--pae", "off"]
+        vb.customize ["modifyvm", :id, "--vtxux", "on"]
+        vb.customize ["modifyvm", :id, "--vtxvpid", "on"]
+        vb.customize ["setproperty", "hwvirtexclusive", "on"]
+        vb.customize ["modifyvm", :id, "--longmode", "off"]
+        vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+        vb.cpus = 1
         vb.gui = true
       end
 
