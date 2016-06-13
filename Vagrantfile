@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--vtxvpid", "on"]
         vb.customize ["setproperty", "hwvirtexclusive", "on"]
         vb.customize ["modifyvm", :id, "--longmode", "off"]
-        vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+        vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
         vb.cpus = 1
         vb.gui = true
       end
