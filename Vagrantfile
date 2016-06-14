@@ -20,12 +20,16 @@ Vagrant.configure(2) do |config|
   config.vm.graceful_halt_timeout=100
   config.vm.box = "packer-windows/windows_7_virtualbox.box"
   config.vm.box_check_update = false
+  config.windows.halt_timeout = 15
+  config.winrm.max_tries = 40
+  config.winrm.basic_auth_only = true
   config.winrm.username = 'vagrant'
   config.winrm.password = 'vagrant'
   config.vm.communicator = "winrm"
 
   config.vm.network :private_network, ip: "192.168.10.40"
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+  config.vm.network :forwarded_port, guest: 5985, host: 5985
   config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "#$MEMSIZE", "--natnet1", "172.16.1/24"]
         vb.customize ["modifyvm", :id, "--nestedpaging", "on"]

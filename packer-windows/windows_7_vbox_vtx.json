@@ -18,6 +18,8 @@
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
+        "./scripts/download.ps1",
+        "./scripts/set_proxy.bat",
         "./scripts/fixnetwork.ps1",
         "./scripts/update_powershell.bat",
         "./scripts/chocolatey.ps1",

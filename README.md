@@ -15,8 +15,30 @@ The resulting Vagrant box can in turn be found at ./packer-windows/windows_7_vir
 
 **Windows Updates are disabled by default**
 
-## Using Vagrant and Ansible to provision the base OS
+### Setting a corporate proxy
+The Windows VM might need to communicate with a proxy to download files. You can set a proxy within the Autounattend.xml file at ./packer-windows/answer_files/7/Autounattend.xml.
+
+```
+> set_proxy.bat <host ip> <port>
+```
+
+```xml
+<!-- Configure proxy settings -->
+<SynchronousCommand wcm:action="add">
+    <CommandLine>cmd.exe /c a:\set_proxy.bat 10.0.2.2 3128</CommandLine>
+    <Description>Configure proxy</Description>
+    <Order>1</Order>
+    <RequiresUserInput>true</RequiresUserInput>
+</SynchronousCommand>
+```
+
+## Using Vagrant and Ansible to provision the base OS (Dev environment)
 
 ```
 $ vagrant up
+```
+
+## Checking the WinRM connection with Ansible
+```
+$ ansible default -i inventory.ini -m win_ping -vvv
 ```
