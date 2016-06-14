@@ -1,0 +1,22 @@
+---
+
+server_version_major: 2.45
+server_version: "{{server_version_major}}.0"
+download_server: "http://selenium-release.storage.googleapis.com/{{server_version_major}}"
+selenium_dir: "C:\\Selenium"
+selenium_user: vagrant
+selenium_group: vagrant
+jar_file: selenium-server-standalone-{{server_version}}.jar
+download_url: "{{download_server}}/{{jar_file}}"
+temp_dir: "C:\\Temp"
+
+sel_role: standalone
+
+hub: ''
+java_opts: ''
+extra_args: ''
+port: ''
+
+proxy_env:
+  zhttp_proxy: dummy
+  zhttps_proxy: dummy

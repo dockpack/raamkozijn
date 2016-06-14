@@ -1,0 +1,17 @@
+---
+- name: Install javaruntime
+  win_chocolatey:
+    name: javaruntime
+    state: present
+- name: Install Firefox
+  win_chocolatey:
+    name: Firefox
+    state: present
+- name: GoogleChrome
+  win_chocolatey:
+    name: GoogleChrome
+    state: present
+
+# - name: Get Selenium Node
+  # win_cmd:
+    # "https://github.com/groupon/Selenium-Grid-Extras/releases/download/v1.12.2/SeleniumGridExtras-1.12.2-SNAPSHOT-jar-with-dependencies.jar"

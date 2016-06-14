@@ -1,0 +1,13 @@
+
+---
+- name: se_hub started
+  service: name=se_hub state=started
+
+- name: se_hub restarted
+  service: name=se_hub state=restarted
+
+- name: se_node started
+  service: name=se_node state=started
+
+- name: se_node restarted
+  service: name=se_node state=restarted

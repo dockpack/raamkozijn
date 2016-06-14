@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# based on https://stomp.colorado.edu/blog/blog/2011/12/05/on-selenium-grid-and-init-scripts/
+
+# chkconfig: 35 66 36
+# description: Selenium
+# pidfile: /var/run/se_{{sel_role}}.pid
+
+USER="{{ selenium_user }}"
+GROUP="{{ selenium_group }}"
+JAVA_CMD="java -jar"
+
+NAME=se_{{sel_role}}
+DEFAULT="/etc/default/${NAME}"
+LOCK_FILE="/var/lock/subsys/${NAME}"
+PID_FILE="/var/run/${NAME}.pid"
+LOG_FILE="/var/log/selenium/${NAME}.log"
+ERROR_LOG="/var/log/selenium/error.log"
+REDIRECT="1>>${LOG_FILE} 2>>${ERROR_LOG} &"
+EXEC="${JAVA_CMD}"
+
+if [ -f "${DEFAULT}" ]; then
+    . "${DEFAULT}"
+fi
+
+if [ ! -z "${ROLE}" ]; then
+        JAR_ARGS="-role ${ROLE}"
+fi
+if [ ! -z "${HUB}" ]; then
+    JAR_ARGS="${JAR_ARGS} -hub ${HUB}"
+fi
+
+if [ ! -z "${PORT}" ]; then
+    JAR_ARGS="${JAR_ARGS} -port ${PORT}"
+fi
+
+EXEC_REDIRECT="${JAVA_CMD} {{ selenium_dir }}/selenium-server.jar ${JAR_ARGS} ${REDIRECT}"
+
+case "$1" in
+    start)
+        if [ ! -f ${LOG_FILE} ]; then
+            mkdir -p -m 755 $(dirname ${LOG_FILE})
+        fi
+        chown ${USER}:${GROUP} $(dirname ${LOG_FILE})
+        touch ${LOG_FILE}
+        touch ${ERROR_LOG}
+        chown ${USER}:${GROUP} ${LOG_FILE}
+        chown ${USER}:${GROUP} ${ERROR_LOG}
+
+        echo -n "Starting ${NAME}: " | tee -a ${LOG_FILE}
+        su - ${USER} -c "${EXEC_REDIRECT}"
+        RETVAL=$?
+        echo | tee -a ${LOG_FILE}
+        if [ ${RETVAL} -eq 0 ]; then
+            touch ${LOCK_FILE}
+            PID="$(pgrep -f "$(echo ${EXEC})")"
+            echo ${PID} > ${PID_FILE}
+        fi
+        ;;
+    status)
+        if [ -e ${PID_FILE} ]; then
+	          ps -ef|grep `cat ${PID_FILE}` > /dev/null 2>&1
+            if [ $? == 0 ]; then
+                echo ${NAME} is running
+            else
+                echo ${NAME} is not running
+            fi
+        else
+            echo ${NAME} is not running
+        fi
+        ;;
+    stop)
+        echo -n "Stopping ${NAME}: " | tee -a ${LOG_FILE}
+        if [ -e ${PID_FILE} ]; then
+            kill -9 `cat ${PID_FILE}`
+            RETVAL=$?
+            echo | tee -a ${LOG_FILE}
+            [ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}
+        else
+            $0 status
+        fi
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart}"
+        exit 1
+esac
