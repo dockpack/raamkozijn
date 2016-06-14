@@ -1,10 +1,10 @@
 - name: Selenium Grid Windows Node
   hosts: default
   remote_user: vagrant
-  gather_facts: no
+  gather_facts: yes
 
-  #roles:
-  #- windows-selenium-role
+  roles:
+  - ansible-selenium-role
 
-  tasks:
-    - include: tasks/windows_tasks.yml
+#  tasks:
+#    - include: tasks/windows_tasks.yml

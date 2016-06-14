@@ -41,7 +41,7 @@ Vagrant.configure(2) do |config|
 
   # Use the Ansible playbook provision.yml to setup the virtual machines.
   config.vm.provision "ansible" do |ansible|
-    ansible.inventory_path = "inventory.ini"
+    ansible.inventory_path = "ansible.ini"
     ansible.playbook = "provision.yml"
     ansible.verbose = "vv"
     ansible.host_key_checking = "false"
