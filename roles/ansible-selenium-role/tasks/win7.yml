@@ -11,7 +11,23 @@
   win_chocolatey:
     name: GoogleChrome
     state: present
+- name: wget
+  win_chocolatey:
+    name: wget
+    state: present
 
-# - name: Get Selenium Node
-  # win_cmd:
-    # "https://github.com/groupon/Selenium-Grid-Extras/releases/download/v1.12.2/SeleniumGridExtras-1.12.2-SNAPSHOT-jar-with-dependencies.jar"
+- name: Create SeleniumGridDir if not present
+  win_file: path=c:\SeleniumGrid state=directory
+
+- name: Copy jar file
+#  win_copy: src=SeleniumGridExtras.jar dest=c:\SeleniumGrid\selenium-grid-extras.jar
+  raw: CMD /C wget --no-check-certificate https://github.com/groupon/Selenium-Grid-Extras/releases/download/v1.12.2/SeleniumGridExtras-1.12.2-SNAPSHOT-jar-with-dependencies.jar -O C:/SeleniumGrid/selenium-grid-extras.jar
+  
+- name: Install Selenium Node
+  script: GridNodeInstall.ps1
+  
+- name: Replace configuration file
+  win_template: src=node_5555.j2 dest=c:/SeleniumGrid/node_5555.json
+
+- name: Start the node as a service
+  raw: CMD /C schtasks.exe /Run /TN "StartSeleniumNode"

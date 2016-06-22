@@ -1,0 +1,36 @@
+{
+  "capabilities": [
+    {
+      "seleniumProtocol": "WebDriver",
+      "browserName": "firefox",
+      "maxInstances": 1,
+      "version": "",
+      "platform": "WINDOWS"
+    },
+    {
+      "seleniumProtocol": "WebDriver",
+      "browserName": "internet explorer",
+      "maxInstances": 1,
+      "version": "8",
+      "platform": "WINDOWS"
+    },
+    {
+      "seleniumProtocol": "WebDriver",
+      "browserName": "chrome",
+      "maxInstances": 1,
+      "version": "",
+      "platform": "WINDOWS"
+    }
+  ],
+  "configuration": {
+    "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+    "maxSession": 3,
+    "port": 5555,
+    "register": true,
+    "unregisterIfStillDownAfter": 10000,
+    "hubPort": {{SeleniumGridHubPort}},
+    "hubHost": "{{SeleniumGridHubFQDN}}",
+    "nodeStatusCheckTimeout": 10000,
+    "downPollingLimit": 0
+  }
+}
