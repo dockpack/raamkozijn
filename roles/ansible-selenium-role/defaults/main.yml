@@ -9,9 +9,13 @@ selenium_group: vagrant
 jar_file: selenium-server-standalone-{{server_version}}.jar
 download_url: "{{download_server}}/{{jar_file}}"
 temp_dir: "C:\\Temp"
+proxyHost: localhost
+proxyPort: 80
+https_proxy: "{{proxyHost}}:{{proxyPort}}"
 
 SeleniumGridHubPort: 80
 SeleniumGridHubFQDN: localhost
+host: localhost
 
 sel_role: standalone
 

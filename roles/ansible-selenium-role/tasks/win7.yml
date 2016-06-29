@@ -1,4 +1,14 @@
 ---
+- name: Change System Proxy settings
+  win_environment:
+    name: https_proxy
+    value: "{{https_proxy}}"
+    level: machine
+    state: present
+
+- name: Change chocolatey proxy settings
+  raw: CMD /C choco config set proxy "{{https_proxy}}"
+
 - name: Install javaruntime
   win_chocolatey:
     name: javaruntime
@@ -7,11 +17,11 @@
   win_chocolatey:
     name: Firefox
     state: present
-- name: GoogleChrome
+- name: Install GoogleChrome
   win_chocolatey:
     name: GoogleChrome
     state: present
-- name: wget
+- name: Install wget
   win_chocolatey:
     name: wget
     state: present
@@ -19,15 +29,20 @@
 - name: Create SeleniumGridDir if not present
   win_file: path=c:\SeleniumGrid state=directory
 
-- name: Copy jar file
-#  win_copy: src=SeleniumGridExtras.jar dest=c:\SeleniumGrid\selenium-grid-extras.jar
+- name: Get selenium-grid-extras.jar file from github
   raw: CMD /C wget --no-check-certificate https://github.com/groupon/Selenium-Grid-Extras/releases/download/v1.12.2/SeleniumGridExtras-1.12.2-SNAPSHOT-jar-with-dependencies.jar -O C:/SeleniumGrid/selenium-grid-extras.jar
   
 - name: Install Selenium Node
   script: GridNodeInstall.ps1
   
-- name: Replace configuration file
+- name: Replace Selenium node configuration file
   win_template: src=node_5555.j2 dest=c:/SeleniumGrid/node_5555.json
+
+- name: Create startnode.bat from template
+  win_template: src=startnode.j2 dest=c:/SeleniumGrid/startnode.bat
+
+- name: Schedule the node to start at logon
+  raw: CMD /C schtasks.exe /Create /SC ONSTART /TN "StartSeleniumNode" /TR "cmd /c ""C:\SeleniumGrid\startnode.bat"""
 
 - name: Start the node as a service
   raw: CMD /C schtasks.exe /Run /TN "StartSeleniumNode"

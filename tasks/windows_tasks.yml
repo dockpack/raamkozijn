@@ -1,2 +1,0 @@
-- win_stat: path=C:\windows\system32\cmd.exe
-  register: file_info

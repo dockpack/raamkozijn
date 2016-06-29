@@ -30,6 +30,7 @@ Vagrant.configure(2) do |config|
   config.vm.network :private_network, ip: "192.168.10.40"
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
   config.vm.network :forwarded_port, guest: 5985, host: 5985
+  config.vm.network :forwarded_port, guest: 5555, host: 5555
   config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "#$MEMSIZE", "--natnet1", "172.16.1/24"]
         vb.customize ["modifyvm", :id, "--nestedpaging", "on"]

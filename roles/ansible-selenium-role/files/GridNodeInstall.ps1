@@ -6,7 +6,7 @@
 #
 ##############################################################################################
 
-choco install powershell
+#choco install powershell
 if (Test-PendingReboot) { Invoke-Reboot }
 
 $seleniumGridPath = "c:\SeleniumGrid"
@@ -27,9 +27,9 @@ $DecodedNodeConfig = [System.Convert]::FromBase64String($Base64EncodedNodeConfig
 Set-Content -Path $seleniumGridPath\node_5555.json -Value $DecodedNodeConfig -Encoding Byte
 
 # Create Start.bat file
-$javaPath=Get-ChildItem "C:\Program Files\Java\jre*"
-Set-Content -Path $seleniumGridPath\startnode.bat -Value "cd $seleniumGridPath & `"$javaPath`"\bin\java -jar selenium-grid-extras.jar"
+#$javaPath=Get-ChildItem "C:\Program Files\Java\jre*"
+#Set-Content -Path $seleniumGridPath\startnode.bat -Value "cd $seleniumGridPath & `"$javaPath`"\bin\java -jar selenium-grid-extras.jar"
 
-schtasks.exe /Create /SC ONLOGON /TN "StartSeleniumNode" /TR "cmd /c ""C:\SeleniumGrid\startnode.bat"""
+#schtasks.exe /Create /SC ONLOGON /TN "StartSeleniumNode" /TR "cmd /c ""C:\SeleniumGrid\startnode.bat"""
 
 #if (Test-PendingReboot) { Invoke-Reboot }
