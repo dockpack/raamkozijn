@@ -30,8 +30,9 @@ RUN chmod +x /VirtualBox-5.0.12-104815-Linux_amd64.run
 RUN /VirtualBox-5.0.12-104815-Linux_amd64.run
 RUN rm -f /VirtualBox-5.0.12-104815-Linux_amd64.run
 RUN yum clean all
-VOLUME /vdi
-VOLUME /usr/src/kernels
-ADD artifacts/entrypoint.sh /entrypoint.sh
+#VOLUME /vdi
+VOLUME /usr/src/
+COPY artifacts/raamkozijn.vmdk /raamkozijn.vmdk
+COPY artifacts/entrypoint.sh /entrypoint.sh
 EXPOSE 5555
 CMD /entrypoint.sh
