@@ -14,6 +14,7 @@ RUN yum -y install qt \
                    dkms \
                    bzip2 \
                    patch \
+                   python \
                    procps \
                    vagrant \
                    libgomp \
@@ -25,14 +26,13 @@ RUN yum -y install qt \
                    vagrant-libvirt \
                    openssh-clients \
                    libvirt-daemon-vbox --allowerasing
-RUN curl -kls http://download.virtualbox.org/virtualbox/5.0.12/VirtualBox-5.0.12-104815-Linux_amd64.run -o /VirtualBox-5.0.12-104815-Linux_amd64.run
-RUN chmod +x /VirtualBox-5.0.12-104815-Linux_amd64.run
-RUN /VirtualBox-5.0.12-104815-Linux_amd64.run
-RUN rm -f /VirtualBox-5.0.12-104815-Linux_amd64.run
+RUN curl -kls http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0.20-106931-Linux_amd64.run -o /VirtualBox-5.0.20-106931-Linux_amd64.run
+RUN chmod +x /VirtualBox-5.0.20-106931-Linux_amd64.run
+RUN /VirtualBox-5.0.20-106931-Linux_amd64.run
+RUN rm -f /VirtualBox-5.0.20-106931-Linux_amd64.run
 RUN yum clean all
-#VOLUME /vdi
 VOLUME /usr/src/
-COPY artifacts/raamkozijn.vmdk /raamkozijn.vmdk
+COPY artifacts/*.vmdk /
 COPY artifacts/entrypoint.sh /entrypoint.sh
 EXPOSE 5555
 CMD /entrypoint.sh
