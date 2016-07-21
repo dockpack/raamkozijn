@@ -4,7 +4,7 @@ VERSION=latest
 
 build:
 #	cp ~/VirtualBox\ VMs/raamkozijn.vmdk ./artifacts/raamkozijn.vmdk
-	cp ../packer-windows/output-virtualbox-iso/packer-virtualbox-iso-1467970004*.vmdk ./artifacts/raamkozijn.vmdk
+	cp ../packer-windows/output-virtualbox-iso/packer-virtualbox-iso-14690*.* ./artifacts/
 	docker build --no-cache=false  --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} -t $(AUTHOR)/$(NAME):$(VERSION) .
 
 bash:

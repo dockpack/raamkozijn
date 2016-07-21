@@ -32,7 +32,7 @@ RUN /VirtualBox-5.0.20-106931-Linux_amd64.run
 RUN rm -f /VirtualBox-5.0.20-106931-Linux_amd64.run
 RUN yum clean all
 VOLUME /usr/src/
-COPY artifacts/*.vmdk /
+COPY artifacts/packer*.* /
 COPY artifacts/entrypoint.sh /entrypoint.sh
 EXPOSE 5555
 CMD /entrypoint.sh
