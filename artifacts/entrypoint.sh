@@ -1,8 +1,10 @@
 #!/bin/bash
 VM=`ls packer*.ovf|cut -d'.' -f1`
 
+yum -y install /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
+
 /sbin/rcvboxdrv setup
-ln -s /usr/bin/dracut /usr/sbin/dracut
+#ln -s /usr/bin/dracut /usr/sbin/dracut
 VBoxManage import packer*.ovf
 VBoxManage modifyvm $VM --cpus 1
 VBoxManage modifyvm $VM --nestedpaging off
