@@ -38,13 +38,9 @@ RUN yum -y install dbus \
                    libvpx \
                    net-tools
 RUN curl -kls http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm -o /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
-#RUN curl -kls http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm -o /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
-#RUN chmod +x /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
-#RUN yum -y install /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
-#RUN rm -f /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
 RUN yum clean all
 VOLUME /usr/src/
 COPY artifacts/packer*.* /
 COPY artifacts/entrypoint.sh /entrypoint.sh
-EXPOSE 5555
+EXPOSE 5555 5985
 CMD /entrypoint.sh
