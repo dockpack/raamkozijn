@@ -8,7 +8,7 @@ VERSION=latest
 
 
 docker:
-	docker build --no-cache=false  --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} -t $(AUTHOR)/$(NAME):$(VERSION) .
+	docker build --no-cache=false  -t $(AUTHOR)/$(NAME):$(VERSION) .
 
 bash:
 	docker run --privileged=true -ti -e DISPLAY=unix${DISPLAY} -P $(AUTHOR)/$(NAME):$(VERSION) /bin/bash
