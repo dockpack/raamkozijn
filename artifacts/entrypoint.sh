@@ -1,5 +1,5 @@
 #!/bin/bash
-VM=`ls IE*.ovf|cut -d'.' -f1`
+VM=`ls IE*.ova|cut -d'.' -f1`
 
 yum -y install /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
 
