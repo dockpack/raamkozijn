@@ -1,5 +1,5 @@
 FROM docker.io/centos:latest
-MAINTAINER Maxim.Belooussov@ing.nl
+MAINTAINER alex@kogon.com
 
 # set the timezone to be Europe/Amsterdam
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
@@ -40,7 +40,7 @@ RUN yum -y install dbus \
 RUN curl -kls http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm -o /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
 RUN yum clean all
 VOLUME /usr/src/
-COPY artifacts/IE*.* /
+COPY artifacts/IE*.ova /
 COPY artifacts/entrypoint.sh /entrypoint.sh
 EXPOSE 5555 5985
 CMD /entrypoint.sh
