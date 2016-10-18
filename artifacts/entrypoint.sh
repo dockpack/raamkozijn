@@ -5,7 +5,7 @@ yum -y install /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
 
 /sbin/rcvboxdrv setup
 #ln -s /usr/bin/dracut /usr/sbin/dracut
-VBoxManage import IE11\ -\ Win7.ovf
+VBoxManage import IE11\ -\ Win7.ova
 VBoxManage modifyvm $VM --cpus 1
 VBoxManage modifyvm $VM --nestedpaging off
 VBoxManage modifyvm $VM --pae off
