@@ -14,6 +14,6 @@ bash:
 	docker run --privileged=true -ti -e DISPLAY=unix${DISPLAY} -P $(AUTHOR)/$(NAME):$(VERSION) /bin/bash
 
 magic:
-	docker run --privileged=true -ti -e DISPLAY=unix${DISPLAY} -P $(AUTHOR)/$(NAME):$(VERSION)
+	docker run --privileged=true -ti -e DISPLAY=unix${DISPLAY} -v /lib/modules:/lib/modules -P $(AUTHOR)/$(NAME):$(VERSION)
 
 default: magic
