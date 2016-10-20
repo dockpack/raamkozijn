@@ -12,6 +12,7 @@ RUN yum -y install qt \
                    gcc \
                    make \
                    curl \
+                   wget \
                    dkms \
                    bzip2 \
                    patch \
@@ -37,7 +38,8 @@ RUN yum -y install dbus \
                    libpng \
                    libvpx \
                    net-tools
-RUN curl -kls http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm -o /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
+#RUN curl -kls http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm -o /VirtualBox-5.1-5.1.4_110228_el7-1.x86_64.rpm
+RUN wget http://download.virtualbox.org/virtualbox/5.1.8/VirtualBox-5.1-5.1.8_111374_el7-1.x86_64.rpm
 RUN yum clean all
 VOLUME /usr/src/
 COPY artifacts/IE*.ova /
